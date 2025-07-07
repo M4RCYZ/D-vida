@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item_background"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="12dp"
+    android:layout_marginBottom="8dp">
+
+    <ImageView
+        android:id="@+id/imageViewDelete"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:padding="12dp"
+        android:src="@drawable/ic_delete"
+        android:contentDescription="Deletar dívida"
+        app:tint="@color/ios_secondary_text"
+        xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+    <TextView
+        android:id="@+id/textViewValor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/imageViewDelete"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/ios_red"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        tools:text="R$ 55,00" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/textViewValor"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewDescricao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ios_primary_text"
+            android:textSize="17sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="Almoço no shopping com amigos" />
+
+        <TextView
+            android:id="@+id/textViewData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ios_secondary_text"
+            android:textSize="15sp"
+            tools:text="07/07/2025" />
+    </LinearLayout>
+
+</RelativeLayout>
