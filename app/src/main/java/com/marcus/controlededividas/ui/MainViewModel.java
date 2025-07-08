@@ -1,42 +1,60 @@
 package com.marcus.controlededividas.ui;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.marcus.controlededividas.data.Divida;
 import com.marcus.controlededividas.data.DividaRepository;
+import com.marcus.controlededividas.data.User;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MainViewModel extends AndroidViewModel {
 
     private final DividaRepository mRepository;
+
+    private final MutableLiveData<Integer> currentUserId = new MutableLiveData<>();
+
+    private final LiveData<List<User>> mAllUsers;
+
     private final LiveData<List<Divida>> mAllDividas;
     private final LiveData<Double> mTotalDivida;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        // Cria o repositório, que por sua vez acessa o banco de dados.
         mRepository = new DividaRepository(application);
-        // Pega os LiveData do repositório.
-        mAllDividas = mRepository.getAllDividas();
-        mTotalDivida = mRepository.getTotalDivida();
+
+        mAllUsers = mRepository.getAllUsers();
+
+        mAllDividas = Transformations.switchMap(currentUserId, id -> {
+            if (id == null) {
+                return new MutableLiveData<>(Collections.emptyList());
+            }
+            return mRepository.getAllDividas(id);
+        });
+
+        mTotalDivida = Transformations.switchMap(currentUserId, id -> {
+            if (id == null) {
+                return new MutableLiveData<>(0.0);
+            }
+            return mRepository.getTotalDivida(id);
+        });
     }
 
-    public LiveData<List<Divida>> getAllDividas() {
-        return mAllDividas;
+    public void setCurrentUser(int userId) {
+        currentUserId.setValue(userId);
     }
 
-    public LiveData<Double> getTotalDivida() {
-        return mTotalDivida;
-    }
-    public void insert(Divida divida) {
-        mRepository.insert(divida);
-    }
-    public void deleteById(int id) {
-        mRepository.deleteById(id);
-    }
+    public LiveData<List<Divida>> getDividasDoUsuario() { return mAllDividas; }
+    public LiveData<Double> getTotalDaDividaDoUsuario() { return mTotalDivida; }
+    public LiveData<List<User>> getAllUsers() { return mAllUsers; }
+
+    public void insert(Divida divida) { mRepository.insert(divida); }
+    public void deleteById(int id) { mRepository.deleteById(id); }
+    public void insertUser(User user) { mRepository.insertUser(user); }
 }

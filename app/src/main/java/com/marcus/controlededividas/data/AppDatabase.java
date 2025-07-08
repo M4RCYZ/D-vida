@@ -8,10 +8,11 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Divida.class}, version = 1, exportSchema = false)
+@Database(entities = {Divida.class, User.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract DividaDao dividaDao();
+    public abstract UserDao userDao();
 
     private static volatile AppDatabase INSTANCE;
 

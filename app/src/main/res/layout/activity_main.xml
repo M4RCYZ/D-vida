@@ -16,6 +16,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinnerUsuarios"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/buttonAddUser"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Adicionar novo usuário"
+                android:src="@drawable/ic_add_person" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@drawable/list_item_background"
             android:gravity="center"
             android:orientation="vertical"
@@ -37,23 +59,14 @@
                 android:textColor="@color/ios_red"
                 android:textSize="34sp"
                 android:textStyle="bold"
-                tools:text="R$ 1.250,50" />
+                tools:text="R$ 0,00" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Histórico"
-            android:textColor="@color/ios_primary_text"
-            android:textSize="22sp"
-            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewDividas"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:clipToPadding="false"
             tools:listitem="@layout/item_divida" />
